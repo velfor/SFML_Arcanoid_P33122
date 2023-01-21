@@ -3,6 +3,7 @@
 #include "bat.h"
 #include "ball.h"
 #include "textobj.h"
+#include "brick.h"
 
 bool pointInRect(sf::RectangleShape bat, sf::Vector2f point) {
 	float batX = bat.getPosition().x;
@@ -19,10 +20,12 @@ void checkEvents(sf::RenderWindow& window) {
 	}
 }
 
-void updateGame(Bat& bat, Ball& ball, TextObj& scoreText, int score) {
+void updateGame(Bat& bat, Ball& ball, TextObj& scoreText, int score,
+	Brick& brick) {
 	batUpdate(bat);
 	ballUpdate(ball);
 	textUpdate(scoreText, score);
+	brickUpdate(brick);
 }
 
 void checkCollisions(Bat& bat, Ball& ball) {
@@ -49,11 +52,12 @@ void checkCollisions(Bat& bat, Ball& ball) {
 }
 
 void drawGame(sf::RenderWindow& window, const Bat& bat, 
-	const Ball& ball, const TextObj& scoreText) {
+	const Ball& ball, const TextObj& scoreText, const Brick& brick) {
 	window.clear();
 	batDraw(window, bat);
 	ballDraw(window, ball);	
 	textDraw(window, scoreText);
+	brickDraw(window, brick);
 	window.display();
 }
 

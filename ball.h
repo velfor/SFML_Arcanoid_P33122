@@ -13,7 +13,7 @@ void ballInit(Ball& ball) {
 	ball.shape.setRadius(BALL_RADIUS);
 	ball.shape.setFillColor(BALL_COLOR);
 	ball.shape.setPosition(BALL_START_POS);
-	float arr_speed[] {-5.f,-4.f,-3.f,-2.f,-1.f,1.f,2.f,3.f,4.f,5.f};
+	float arr_speed[] {-2.5f,-2.f,-1.5f,-1.f,-0.5f,0.5f,1.f,1.5f,2.f,2.5f};
 	int index = rand() % 10;
 	ball.speedX = arr_speed[index];
 	index = rand() % 10;

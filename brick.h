@@ -18,4 +18,6 @@ void brickInit(Brick& brick, sf::Color color, sf::Vector2f position) {
 
 void brickUpdate(Brick& brick) {}
 
-
+void brickDraw(sf::RenderWindow& window, const Brick& brick) {
+	window.draw(brick.shape);
+}

@@ -1,7 +1,7 @@
 ﻿  main.cpp
-D:\forvel\SFML_ARCANOID_P33122\main.cpp(10,12): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
-D:\forvel\SFML_ARCANOID_P33122\main.cpp(13,27): warning C4244: аргумент: преобразование "const float" в "unsigned int", возможна потеря данных
-D:\forvel\SFML_ARCANOID_P33122\main.cpp(13,13): warning C4244: аргумент: преобразование "const float" в "unsigned int", возможна потеря данных
+D:\forvel\SFML_ARCANOID_P33122\main.cpp(11,12): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+D:\forvel\SFML_ARCANOID_P33122\main.cpp(14,27): warning C4244: аргумент: преобразование "const float" в "unsigned int", возможна потеря данных
+D:\forvel\SFML_ARCANOID_P33122\main.cpp(14,13): warning C4244: аргумент: преобразование "const float" в "unsigned int", возможна потеря данных
   SFML_ARCANOID_P33122.vcxproj -> D:\forvel\SFML_ARCANOID_P33122\x64\Debug\SFML_ARCANOID_P33122.exe
   D:\SFML\bin\openal32.dll
   D:\SFML\bin\sfml-audio-2.dll
