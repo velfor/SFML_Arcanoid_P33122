@@ -4,6 +4,7 @@
 #include "bat.h"
 #include "textobj.h"
 #include "brick.h"
+#include "brickRow.h"
 
 using namespace sf;
 int main()
@@ -23,18 +24,18 @@ int main()
 	ballInit(ball);
 	TextObj scoreText;
 	textInit(scoreText, score);
-	Brick brick;
-	brickInit(brick, Color::Yellow, Vector2f{ 0.f, 50.f });
+	BrickRow brickRow;
+	brickRowInit(brickRow, 20, Vector2f{0.f, 60.f}, BRICK_WIDTH);
 
 	while (window.isOpen()){
 		checkEvents(window);
-		updateGame(bat, ball, scoreText, score, brick);
+		updateGame(bat, ball, scoreText, score, brickRow);
 		
 		if (ball.shape.getPosition().y >=
 			WINDOW_HEIGHT - 2 * BALL_RADIUS)
 			break;
 		checkCollisions(bat, ball);
-		drawGame(window, bat, ball, scoreText, brick);
+		drawGame(window, bat, ball, scoreText, brickRow);
 	}
 	return 0;
 }
