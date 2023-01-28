@@ -24,18 +24,19 @@ int main()
 	ballInit(ball);
 	TextObj scoreText;
 	textInit(scoreText, score);
-	BrickRow brickRow;
-	brickRowInit(brickRow, 20, Vector2f{0.f, 60.f}, BRICK_WIDTH);
+	BrickField field;
+	brickFieldInit(field);
 
 	while (window.isOpen()){
 		checkEvents(window);
-		updateGame(bat, ball, scoreText, score, brickRow);
+		updateGame(bat, ball, scoreText, score, field);
 		
 		if (ball.shape.getPosition().y >=
 			WINDOW_HEIGHT - 2 * BALL_RADIUS)
 			break;
 		checkCollisions(bat, ball);
-		drawGame(window, bat, ball, scoreText, brickRow);
+		checkCollisionsWithBricks(ball, field);
+		drawGame(window, bat, ball, scoreText, field);
 	}
 	return 0;
 }

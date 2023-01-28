@@ -28,3 +28,6 @@ const sf::Vector2f TEXT_START_POS{ WINDOW_WIDTH - TEXT_OFFSET, 0.f };
 
 const float BRICK_WIDTH = 80.f;
 const float BRICK_HEIGHT = 40.f;
+
+const int ROWS = 8;
+const int COLUMNS = 20;

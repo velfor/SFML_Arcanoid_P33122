@@ -6,11 +6,11 @@
 #include "brick.h"
 #include "brickRow.h"
 
-bool pointInRect(sf::RectangleShape bat, sf::Vector2f point) {
-	float batX = bat.getPosition().x;
-	float batY = bat.getPosition().y;
-	return (point.x >= batX && point.x <= batX + BAT_WIDTH)
-		&& (point.y >= batY && point.y <= batY + BAT_HEIGHT);
+bool pointInRect(sf::RectangleShape rect, sf::Vector2f point) {
+	float rectX = rect.getPosition().x;
+	float rectY = rect.getPosition().y;
+	return (point.x >= rectX && point.x <= rectX + rect.getSize().x)
+		&& (point.y >= rectY && point.y <= rectY + rect.getSize().y);
 }
 
 void checkEvents(sf::RenderWindow& window) {
@@ -22,11 +22,11 @@ void checkEvents(sf::RenderWindow& window) {
 }
 
 void updateGame(Bat& bat, Ball& ball, TextObj& scoreText, int score,
-	BrickRow& brickRow) {
+	BrickField& field) {
 	batUpdate(bat);
 	ballUpdate(ball);
 	textUpdate(scoreText, score);
-	brickRowUpdate(brickRow);
+	brickFieldUpdate(field);
 }
 
 void checkCollisions(Bat& bat, Ball& ball) {
@@ -51,15 +51,61 @@ void checkCollisions(Bat& bat, Ball& ball) {
 		ball.speedY = -ball.speedY;
 	}
 }
+void checkCollisionsWithBricks(Ball& ball, BrickField& field) {
+	sf::Vector2f midLeft{
+		ball.shape.getPosition().x,
+		ball.shape.getPosition().y + BALL_RADIUS
+	};
+	sf::Vector2f midTop{
+		ball.shape.getPosition().x + BALL_RADIUS,
+		ball.shape.getPosition().y
+	};
+	sf::Vector2f midRight{
+		ball.shape.getPosition().x + 2 * BALL_RADIUS,
+		ball.shape.getPosition().y + BALL_RADIUS
+	};
+	sf::Vector2f midBottom{
+		ball.shape.getPosition().x + BALL_RADIUS,
+		ball.shape.getPosition().y + 2 * BALL_RADIUS
+	};
+	for (int i = 0; i < ROWS; i++) {
+		for (int j = 0; j < COLUMNS; j++) {
+			//в нижний край
+			if (pointInRect(field.arr[i][j].shape, midTop)) {
+				field.arr[i][j].shape.setPosition(0.f, 1000.f);
+				ball.speedY = -ball.speedY;
+				break;
+			}
+			//в верхний край
+			if (pointInRect(field.arr[i][j].shape, midBottom)) {
+				field.arr[i][j].shape.setPosition(0.f, 1000.f);
+				ball.speedY = -ball.speedY;
+				break;
+			}
+			//в левый край
+			if (pointInRect(field.arr[i][j].shape, midRight)) {
+				field.arr[i][j].shape.setPosition(0.f, 1000.f);
+				ball.speedX = -ball.speedX;
+				break;
+			}
+			//в правый край
+			if (pointInRect(field.arr[i][j].shape, midLeft)) {
+				field.arr[i][j].shape.setPosition(0.f, 1000.f);
+				ball.speedX = -ball.speedX;
+				break;
+			}
+		}
+	}
+}
 
 void drawGame(sf::RenderWindow& window, const Bat& bat, 
-	const Ball& ball, const TextObj& scoreText, const BrickRow& brickRow)
+	const Ball& ball, const TextObj& scoreText, const BrickField& field)
 {
 	window.clear();
 	batDraw(window, bat);
 	ballDraw(window, ball);	
 	textDraw(window, scoreText);
-	brickRowDraw(window, brickRow);
+	brickFieldDraw(window, field);
 	window.display();
 }
 

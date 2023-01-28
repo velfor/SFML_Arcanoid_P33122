@@ -3,31 +3,39 @@
 #include "SFML/Graphics.hpp"
 #include "brick.h"
 
-struct BrickRow {
-	Brick arr[20];
-	int size;
+struct BrickField {
+	Brick arr[8][20];
 };
 
-void brickRowInit(BrickRow& brickRow, int size, sf::Vector2f position,
-	float stepX)
+void brickFieldInit(BrickField& field)
 {
-	brickRow.size = size;
-	for (int i = 0; i < brickRow.size; i++) {
-		sf::Color color{ (sf::Uint8)(25 * i), 100, 100 };
-		sf::Vector2f brickPos{position.x + i*stepX, position.y};
-		brickInit(brickRow.arr[i], color, brickPos);
+	for (int i = 0; i < ROWS; i++) {
+		for (int j = 0; j < COLUMNS; j++) {
+			sf::Color color;
+			if (i == 0 || i == 1) color = sf::Color::Red;
+			if (i == 2 || i == 3) color = sf::Color{255, 105, 0};
+			if (i == 4 || i == 5) color = sf::Color::Green;
+			if (i == 6 || i == 7) color = sf::Color::Yellow;
+			sf::Vector2f brickPos{ 
+				j * BRICK_WIDTH, 60.f + i*BRICK_HEIGHT };
+			brickInit(field.arr[i][j], color, brickPos);
+		}
 	}
 }
 
-void brickRowUpdate(BrickRow& brickRow) {
-	for (int i = 0; i < brickRow.size; i++) {
-		brickUpdate(brickRow.arr[i]);
+void brickFieldUpdate(BrickField& field) {
+	for (int i = 0; i < ROWS; i++) {
+		for (int j = 0; j < COLUMNS; j++) {
+			brickUpdate(field.arr[i][j]);
+		}
 	}
 }
 
-void brickRowDraw(sf::RenderWindow& window, const BrickRow& brickRow) {
-	for (int i = 0; i < brickRow.size; i++) {
-		window.draw(brickRow.arr[i].shape);
+void brickFieldDraw(sf::RenderWindow& window, const BrickField& field) {
+	for (int i = 0; i < ROWS; i++) {
+		for (int j = 0; j < COLUMNS; j++) {
+			window.draw(field.arr[i][j].shape);
+		}
 	}
 }
 
